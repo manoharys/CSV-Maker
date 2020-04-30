@@ -4,6 +4,10 @@ const button = document.querySelector('button');
 //Global
 let url;
 
+const feedID = "1gRms8eA7DHZipPWlyM0UPkiSpRIWC7Oie-dCkkNE3ow";
+const feed = "https://spreadsheet.google.com/feeds/list/" + feedID + "/1/public/values?alt=json";
+console.log(feed);
+
 //Data
 let myData = [
     ["row", "content"],
