@@ -1,6 +1,12 @@
 const output = document.querySelector('.output');
 const button = document.querySelector('button');
 
+//Data
+let myData = [
+    ["row", "content"],
+    ["row", "content2"]
+]
+
 button.style.padding = "10px";
 button.style.backgroundColor = "green";
 button.style.fontSize = "2.4rem";
@@ -10,5 +16,30 @@ button.style.color = 'white';
 button.style.fontFamily = "monospace"
 
 button.addEventListener('click', function () {
-    console.log("download CSV");
+    createCSV(myData);
 })
+
+//processing the data
+function createCSV(data) {
+    //console.log(data);
+    let holder = "";
+    let fileName = "file.txt";
+    let properties = {
+        type: "text/plain"
+    };
+    data.forEach(element => {
+        //console.log(element.join())
+        holder += element.join() + "\n";
+    });
+    //console.log(holder)
+    //creating the file
+    let file = new File([holder], fileName, properties);
+    console.log(file);
+    let link = document.createElement('a');
+    let url = URL.createObjectURL(file);
+    link.setAttribute("href", url);
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
