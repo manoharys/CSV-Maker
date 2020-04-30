@@ -7,7 +7,7 @@ let url;
 //Data
 let myData = [
     ["row", "content"],
-    ["row", "content2"]
+    ["row", "content2,content2"]
 ]
 
 button.style.padding = "10px";
@@ -29,13 +29,13 @@ function createCSV(data) {
         window.URL.revokeObjectURL(url)
     }
     let holder = "";
-    let fileName = "file.txt";
+    let fileName = "file.csv";
     let properties = {
-        type: "text/plain"
+        type: "text/csv;charset=utf-8;"
     };
     data.forEach(element => {
         //console.log(element.join())
-        holder += element.join() + "\n";
+        holder +=clean(element) + "\n";
     });
     //console.log(holder)
     //creating the file
@@ -48,4 +48,19 @@ function createCSV(data) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    //function which checks whether the data as any commas
+    function clean(row){
+        let rep = "";
+       row.forEach(function (cell,index) {
+        console.log(index);
+        cell = cell == null ? "" : cell.toString();
+        if(cell.search(/("|,|\n)/g) >= 0 ) cell = '"' + cell + '"';   
+        //https://regexr.com/
+        if(index>0) rep+=",";
+        rep+= cell;
+       })
+   return rep;    
+  }
+
 }
