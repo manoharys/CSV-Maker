@@ -1,6 +1,9 @@
 const output = document.querySelector('.output');
 const button = document.querySelector('button');
 
+//Global
+let url;
+
 //Data
 let myData = [
     ["row", "content"],
@@ -22,6 +25,9 @@ button.addEventListener('click', function () {
 //processing the data
 function createCSV(data) {
     //console.log(data);
+    if(url !== null){
+        window.URL.revokeObjectURL(url)
+    }
     let holder = "";
     let fileName = "file.txt";
     let properties = {
@@ -36,7 +42,7 @@ function createCSV(data) {
     let file = new File([holder], fileName, properties);
     console.log(file);
     let link = document.createElement('a');
-    let url = URL.createObjectURL(file);
+    url = URL.createObjectURL(file);
     link.setAttribute("href", url);
     link.setAttribute('download', fileName);
     document.body.appendChild(link);
